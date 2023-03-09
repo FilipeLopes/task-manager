@@ -1,8 +1,8 @@
-.register{
-    
+.container{
+    min-height: 70vh;
     text-align: center;
 }
 
-.register p{
+.container p{
     color: #aaa;
 }

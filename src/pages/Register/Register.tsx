@@ -2,33 +2,56 @@
 import "./Register.css";
 
 //Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRegister } from "../../hooks/useRegister";
 
 type Props = {}
 
 const Register = (props: Props) => {
 
-    const [name, setName] = useState<string>("");
+    const [displayName, setDisplayName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-    const handleSubmit = (e: any) => {
+    const [error, setError] = useState<any>("");
+    const { createUser, error: authError, loading } = useRegister();
+
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(name);
-        console.log(email);
-        console.log(password);
-        console.log(confirmPassword);
+        setError("");
+
+        //Testing password, if something is wrong handleSubmit finishes
+        if (password !== confirmPassword) {
+            setError("Passwords must be the same!");
+
+            return;
+        };
+
+        //Creating the object user
+        const user = {
+            displayName,
+            email,
+            password
+        };
+
+        await createUser(user);
     }
 
+    useEffect(() => {
+        if (authError) {
+            setError(authError);
+        }
+    }, [authError]);
+
     return (
-        <div className="register">
+        <div className="container">
             <h1>Register</h1>
             <p>Create your profile to start using our task manager!</p>
             <form onSubmit={handleSubmit}>
                 <label>
                     <span>Name: </span>
-                    <input type="text" name="displayName" required placeholder="Type your name" onChange={(e) => { setName(e.target.value) }} value={name || ""} />
+                    <input type="text" name="displayName" required placeholder="Type your name" onChange={(e) => { setDisplayName(e.target.value) }} value={displayName || ""} />
                 </label>
                 <label>
                     <span>Email: </span>
@@ -42,7 +65,9 @@ const Register = (props: Props) => {
                     <span>Confirm password: </span>
                     <input type="password" name="confirmPassword" required placeholder="Confirm your password" onChange={(e) => { setConfirmPassword(e.target.value) }} value={confirmPassword || ""} />
                 </label>
-                <button className="btn">Register</button>
+                {!loading && <button className='btn'>Register</button>}
+                {loading && <button className='btn'>Wait...</button>}
+                {error && <p className="error">{error}</p>}
             </form>
         </div>
     )
