@@ -12,6 +12,7 @@ const Navbar = (props: Props) => {
             <ul className="links_list">
                 <li><NavLink to="/">Home</NavLink></li>
                 <li><NavLink to="/about">About</NavLink></li>
+                <li><NavLink to="/register">Register</NavLink></li>
             </ul>
         </nav>
     )

@@ -1,5 +1,6 @@
 /* Global CSS */
 body{
+    min-height: 70vh;  
     background-color: #f6fcff;
     padding: 0;
     margin: 0;

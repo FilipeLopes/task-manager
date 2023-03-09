@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 //Import pages
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
+import Register from './pages/Register/Register';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
         <Footer />
       </BrowserRouter>
