@@ -111,3 +111,11 @@ body{
     padding: 5px;
     border-radius: 5px;
   }
+
+  .container .success{
+    color: #1a8918;
+    background-color: #dff1d9;
+    border: 1px solid #dff1d9;
+    padding: 5px;
+    border-radius: 5px;
+  }
