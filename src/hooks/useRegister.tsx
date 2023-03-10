@@ -1,5 +1,5 @@
 //Firebase
-import { db, authFire } from "../firebase/config";
+import { authFire } from "../firebase/config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 //Hooks
@@ -36,7 +36,7 @@ export const useRegister = () => {
                 data.password
             )
 
-            await updateProfile(user, { displayName: data.displayName });
+            await updateProfile(user, { displayName: data.displayName.toLowerCase() });
 
 
             setLoading(false);

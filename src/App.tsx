@@ -19,6 +19,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Register from './pages/Register/Register';
+import Login from './pages/Login/Login';
 
 function App() {
   const [user, setUser] = useState<any>(undefined);
@@ -41,12 +42,13 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar user={user} />
         <div className='container'>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
+            <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
           </Routes>
         </div>
         <Footer />
