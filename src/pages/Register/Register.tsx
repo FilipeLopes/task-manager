@@ -45,7 +45,7 @@ const Register = (props: Props) => {
     }, [authError]);
 
     return (
-        <div className="container">
+        <div className="register">
             <h1>Register</h1>
             <p>Create your profile to start using our task manager!</p>
             <form onSubmit={handleSubmit}>
@@ -66,7 +66,7 @@ const Register = (props: Props) => {
                     <input type="password" name="confirmPassword" required placeholder="Confirm your password" onChange={(e) => { setConfirmPassword(e.target.value) }} value={confirmPassword || ""} />
                 </label>
                 {!loading && <button className='btn'>Register</button>}
-                {loading && <button className='btn'>Wait...</button>}
+                {loading && <button className='btn' disabled>Wait...</button>}
                 {error && <p className="error">{error}</p>}
             </form>
         </div>

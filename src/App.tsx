@@ -40,14 +40,15 @@ function App() {
 
   return (
     <div className="App">
-
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
-        </Routes>
+        <div className='container'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
+          </Routes>
+        </div>
         <Footer />
       </BrowserRouter>
     </div>

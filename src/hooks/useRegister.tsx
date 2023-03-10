@@ -1,8 +1,8 @@
-//Imports from firebase
+//Firebase
 import { db, authFire } from "../firebase/config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-//Hooks from react
+//Hooks
 import { useState, useEffect } from "react";
 
 export const useRegister = () => {
