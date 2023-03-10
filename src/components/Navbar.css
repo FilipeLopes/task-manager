@@ -40,3 +40,14 @@
     background-color: #000;
     color: #fff
 }
+
+.user-name{
+    margin-left: 1em;
+}
+
+.logout{
+    margin-left: 1em;
+    color:#fff;
+    background-color: #dc3545;
+    border-radius: 5px;
+}
