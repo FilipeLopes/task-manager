@@ -22,6 +22,9 @@ import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
 
+
+import { AuthProvider } from './context/AuthContext';
+
 function App() {
   const [user, setUser] = useState<any>(undefined);
   const { auth } = useRegister();
@@ -42,19 +45,22 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navbar user={user} />
-        <div className='container'>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/profile" element={<Profile user={user} />} />
-            <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
-            <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-          </Routes>
-        </div>
-        <Footer />
-      </BrowserRouter>
+      <AuthProvider value={{ user }}>
+        <BrowserRouter>
+          <Navbar />
+          <div className='container'>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/profile" element={!user ? <Navigate to="/" /> : <Profile />} />
+              <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
+              <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+            </Routes>
+          </div>
+          <Footer />
+        </BrowserRouter>
+      </AuthProvider>
+
     </div>
   );
 }

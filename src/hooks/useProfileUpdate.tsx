@@ -1,6 +1,6 @@
 //Firebase
 import { authFire } from "../firebase/config";
-import { updateProfile } from "firebase/auth";
+import { updateProfile, updatePassword } from "firebase/auth";
 
 //Hooks
 import { useState, useEffect } from "react";
@@ -32,9 +32,11 @@ export const useProfileUpdate = () => {
             if (auth.currentUser) {
                 await updateProfile(auth.currentUser, { displayName: data.name.toLowerCase() });
             }
-
+            if (auth.currentUser && data.password) {
+                await updatePassword(auth.currentUser, data.password);
+            }
             setLoading(false);
-
+            window.location.reload();
         } catch (error: any) {
             console.log(error.message);
             console.log(typeof error.message);
