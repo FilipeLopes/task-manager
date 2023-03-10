@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./TaskEvent.css";
 
 
@@ -8,7 +8,15 @@ type Props = {
 }
 
 const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
+    const [taskName, setTaskName] = useState<string>();
+
     const refModal = useRef<HTMLDivElement>(null);
+
+    const handleNewTask = (e: any) => {
+        e.preventDefault();
+        const start = new Date();
+        console.log(taskName, start);
+    }
 
     useEffect(() => {
         if (refModal.current) {
@@ -21,7 +29,14 @@ const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
             <div className="modal-content">
                 <span className="close" onClick={() => taskModal("none")}>&times;</span>
                 <h2>Create a new task</h2>
-                <p>Conteúdo do modal vai aqui...</p>
+                <p>Define a new task to work with...</p>
+                <form onSubmit={handleNewTask}>
+                    <label>
+                        <span>Task name: </span>
+                        <input type="text" name="taskName" required placeholder="Type the task name" onChange={(e) => setTaskName(e.target.value)} value={taskName || ""} />
+                    </label>
+                    <button className="btn">Confirm</button>
+                </form>
             </div>
         </div >
     )

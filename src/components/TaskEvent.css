@@ -20,6 +20,10 @@
     border-radius: 20px;
   }
   
+  .modal-content p{
+    color: #aaa;
+}
+
   .close {
     position: absolute;
     top: 0;
@@ -35,6 +39,4 @@
     cursor: pointer;
   }
   
-  .show {
-    display: block;
-  }
+
