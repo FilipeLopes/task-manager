@@ -21,8 +21,9 @@ import About from './pages/About/About';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
+import Dashboard from './pages/Dashboard/Dashboard';
 
-
+//Context
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/profile" element={!user ? <Navigate to="/" /> : <Profile />} />
+              <Route path="/dashboard" element={!user ? <Navigate to="/" /> : <Dashboard />} />
               <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
               <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
             </Routes>

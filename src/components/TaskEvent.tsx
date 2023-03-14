@@ -1,5 +1,12 @@
-import { useEffect, useRef, useState } from "react";
 import "./TaskEvent.css";
+
+//Hooks
+import { useEffect, useRef, useState } from "react";
+import { useInsertEvent } from "../hooks/useInsertEvent";
+import { useNavigate } from "react-router-dom";
+
+//Context
+import { useAuthValue } from "../context/AuthContext";
 
 
 type Props = {
@@ -9,13 +16,44 @@ type Props = {
 
 const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
     const [taskName, setTaskName] = useState<string>();
-
+    const [taskDescription, setTaskDescription] = useState<string>();
     const refModal = useRef<HTMLDivElement>(null);
+
+    const [formError, setFormError] = useState<string>("");
+
+    //Create "user" object with logged user data
+    const { user } = useAuthValue();
+
+    //Calls my hook
+    const { insertEvent, response } = useInsertEvent("tasks");
+
+    //create function navigate
+    const navigate = useNavigate();
 
     const handleNewTask = (e: any) => {
         e.preventDefault();
-        const start = new Date();
-        console.log(taskName, start);
+        setFormError("");
+
+        //Check values
+        if (!taskName || !taskDescription) {
+            setFormError("Please, fill all fields!");
+        }
+
+        if (formError) return;
+
+        insertEvent({
+            taskName,
+            taskDescription,
+            isActive: false,
+            uid: user.uid,
+            createdBy: user.email
+        })
+
+
+        setTaskName("");
+        setTaskDescription("");
+        taskModal("none");
+        navigate("/dashboard");
     }
 
     useEffect(() => {
@@ -35,7 +73,14 @@ const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
                         <span>Task name: </span>
                         <input type="text" name="taskName" required placeholder="Type the task name" onChange={(e) => setTaskName(e.target.value)} value={taskName || ""} />
                     </label>
-                    <button className="btn">Confirm</button>
+                    <label>
+                        <span>Task description: </span>
+                        <input type="text" name="taskDescription" required placeholder="Type the description" onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription || ""} />
+                    </label>
+                    {!response.loading && <button className='btn'>Create</button>}
+                    {response.loading && <button disabled className='btn'>Wait...</button>}
+                    {response.error && <p>{response.error}</p>}
+                    {formError && <p>{formError}</p>}
                 </form>
             </div>
         </div >
