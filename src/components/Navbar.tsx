@@ -34,6 +34,7 @@ const Navbar = (props: Props) => {
                 )}
                 {user && (
                     <>
+                        <li><NavLink to="/dashboard">Dashboard</NavLink></li>
                         <li><NavLink to="/profile">Profile</NavLink></li>
                         <span className="user-name"><FaUser />{user.displayName.split(' ')[0][0].toUpperCase() + user.displayName.split(' ')[0].substring(1)}</span>
                         <li><button className="logout" onClick={logout}>Logout</button></li>
