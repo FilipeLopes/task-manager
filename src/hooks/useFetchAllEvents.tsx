@@ -3,7 +3,7 @@ import { db } from "../firebase/config";
 import { collection, query, orderBy, onSnapshot, where } from 'firebase/firestore';
 //import { querystring } from '@firebase/util';
 
-export const useFetchAllEvents = (docCollection: any, search = null, uid = null) => {
+export const useFetchAllEvents = (docCollection: any, search: any, uid = null) => {
     const [documents, setDocuments] = useState<any>(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState<any>(null);
@@ -23,8 +23,11 @@ export const useFetchAllEvents = (docCollection: any, search = null, uid = null)
 
                 //busca
                 //dashboard
-
-                q = await query(collectionRef, where("uid", "==", uid), where("end", "==", ""), orderBy("createdAt", "desc"));
+                if (search) {
+                    q = await query(collectionRef, where("uid", "==", uid), where("end", "!=", ""), orderBy("end", "desc"));
+                } else {
+                    q = await query(collectionRef, where("uid", "==", uid), where("end", "==", ""), orderBy("createdAt", "desc"));
+                }
 
                 await onSnapshot(q, (QuerySnapshot: any) => {
                     setDocuments(

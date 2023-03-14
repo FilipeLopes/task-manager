@@ -2,9 +2,11 @@ import "./Taskbar.css";
 
 //Hooks
 import { useState } from "react";
-import { useAuthValue } from "../context/AuthContext";
 import { useUpdateDocument } from "../hooks/useUpdateDocument";
 import { useInsertEvent } from "../hooks/useInsertEvent";
+
+//Context
+import { useAuthValue } from "../context/AuthContext";
 
 type Props = {
     taskModal: (value: any) => void;
