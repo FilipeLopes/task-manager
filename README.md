@@ -7,3 +7,4 @@ Task control system based on React, typescript, firebase and APIs
 2. Routing system installation: ```npm i react-router-dom```;
 3. Database firebase: ```npm i firebase```;
 4. React icons ```npm install react-icons --save``` [more details](https://react-icons.github.io/react-icons);
+5. FullCalendar ```npm install --save '@fullcalendar/core' '@fullcalendar/react' '@fullcalendar/daygrid' '@fullcalendar/timegrid' '@fullcalendar/interaction'```

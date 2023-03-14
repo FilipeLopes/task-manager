@@ -12,6 +12,13 @@ import { useFetchAllEvents } from "../../hooks/useFetchAllEvents";
 import { useAuthValue } from "../../context/AuthContext";
 import { useFetchActiveEvent } from "../../hooks/useFetchActiveEvent";
 
+//FullCalendar
+import { formatDate } from '@fullcalendar/core'
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+
 type Props = {}
 
 const Dashboard = (props: Props) => {
@@ -25,29 +32,33 @@ const Dashboard = (props: Props) => {
     const { user } = useAuthValue();
     const uid = user.uid;
     const search = "all";
-    let listObjectsTask;
+    let listObjectsTask: any;
 
     const { documents: taskActive, loading: loadActive } = useFetchActiveEvent("tasks", null, uid);
     const { documents: tasks, loading } = useFetchAllEvents("tasks", null, uid);
     const { documents: tasksNoEnd, loading: loadingNoEnd } = useFetchAllEvents("tasks", search, uid);
 
     if (tasksNoEnd) {
-        listObjectsTask = [
-            tasksNoEnd.map((taskNoEnd: any) => (
-                {
-                    name: taskNoEnd.taskName,
-                    description: taskNoEnd.taskDescription,
-                    start: new Date(taskNoEnd.start.seconds * 1000 + Math.round(taskNoEnd.start.nanoseconds / 1000000)),
-                    end: new Date(taskNoEnd.end.seconds * 1000 + Math.round(taskNoEnd.end.nanoseconds / 1000000))
-                }
-            ))
+        listObjectsTask = tasksNoEnd.map((taskNoEnd: any) => (
+            {
+                title: taskNoEnd.taskName,
+                description: taskNoEnd.taskDescription,
+                start: new Date(taskNoEnd.start.seconds * 1000 + Math.round(taskNoEnd.start.nanoseconds / 1000000)),
+                end: new Date(taskNoEnd.end.seconds * 1000 + Math.round(taskNoEnd.end.nanoseconds / 1000000))
+            }
+        ))
 
-        ]
+
+
     }
 
-
+    const handleEventClick = (clickInfo: any) => {
+        console.log(clickInfo.event.title);
+        console.log(clickInfo.event.extendedProps.description);
+    }
 
     useEffect(() => {
+
         if (taskActive && taskActive[0] !== undefined) {
             setTaskState(taskActive);
             setLoadingTask(loadActive);
@@ -70,7 +81,19 @@ const Dashboard = (props: Props) => {
             <div className="dashboard">
                 <>
                     <TaskEvent taskModal={taskModal} modalDisplay={modalDisplay} />
-                    {console.log(listObjectsTask)}
+                    <br />
+                    <FullCalendar
+                        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                        headerToolbar={{
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        }}
+                        initialView='timeGridWeek'
+                        events={listObjectsTask}
+                        allDaySlot={false}
+                        eventClick={handleEventClick}
+                    />
                 </>
             </div>
         </>
