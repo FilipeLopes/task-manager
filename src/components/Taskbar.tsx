@@ -4,6 +4,7 @@ import "./Taskbar.css";
 import { useState } from "react";
 import { useAuthValue } from "../context/AuthContext";
 import { useUpdateDocument } from "../hooks/useUpdateDocument";
+import { useInsertEvent } from "../hooks/useInsertEvent";
 
 type Props = {
     taskModal: (value: any) => void;
@@ -17,18 +18,42 @@ const Taskbar = ({ taskModal, listTasks }: Props) => {
 
     const { updateDocument, response } = useUpdateDocument("tasks");
 
-    const handleTaskEvent = (status: string) => {
+    const { insertEvent, response: resInsert } = useInsertEvent("tasks");
 
-        console.log(status, selectedOp);
+    const handleStartEvent = () => {
 
         const data = {
             isActive: true,
-            uid: user.uid,
-            createdBy: user.displayName
+            start: new Date(),
         }
 
         updateDocument(selectedOp, data);
 
+    }
+
+    const handleStopEvent = () => {
+
+        const data = {
+            isActive: false,
+            end: new Date(),
+        }
+
+        updateDocument(listTasks[0].id, data);
+
+        insertEvent({
+            taskName: listTasks[0].taskName,
+            taskDescription: listTasks[0].taskDescription,
+            isActive: false,
+            start: "",
+            end: "",
+            uid: user.uid,
+            createdBy: user.email
+        })
+
+    }
+
+    if (response.loading || resInsert.loading) {
+        return <p>Loading...</p>;
     }
 
     return (
@@ -61,9 +86,9 @@ const Taskbar = ({ taskModal, listTasks }: Props) => {
                     )}
                     <li>
                         {listTasks && listTasks[0].isActive === true ?
-                            (<button className="taskbar-btn stop" onClick={() => handleTaskEvent("stop")}>Stop</button>)
+                            (<button className="taskbar-btn stop" onClick={handleStopEvent}>Stop</button>)
                             :
-                            (<button className="taskbar-btn" onClick={() => handleTaskEvent("start")}>Start</button>)
+                            (<button className="taskbar-btn" onClick={handleStartEvent}>Start</button>)
                         }
                     </li>
 

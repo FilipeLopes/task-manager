@@ -24,7 +24,7 @@ export const useFetchAllEvents = (docCollection: any, search = null, uid = null)
                 //busca
                 //dashboard
 
-                q = await query(collectionRef, where("uid", "==", uid), orderBy("createdAt", "desc"));
+                q = await query(collectionRef, where("uid", "==", uid), where("end", "==", ""), orderBy("createdAt", "desc"));
 
                 await onSnapshot(q, (QuerySnapshot: any) => {
                     setDocuments(

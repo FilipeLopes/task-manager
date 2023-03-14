@@ -45,6 +45,8 @@ const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
             taskName,
             taskDescription,
             isActive: false,
+            start: "",
+            end: "",
             uid: user.uid,
             createdBy: user.email
         })
