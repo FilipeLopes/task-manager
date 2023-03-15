@@ -24,9 +24,10 @@ const Navbar = (props: Props) => {
                 Task <span>Manager</span>
             </NavLink>
             <ul className="links_list">
-                <li><NavLink to="/">Home</NavLink></li>
+
                 {!user && (
                     <>
+                        <li><NavLink to="/">Home</NavLink></li>
                         <li><NavLink to="/about">About</NavLink></li>
                         <li><NavLink to="/register">Register</NavLink></li>
                         <li><NavLink to="/login">Login</NavLink></li>

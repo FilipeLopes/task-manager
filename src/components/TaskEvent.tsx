@@ -17,8 +17,9 @@ type Props = {
 const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
     const [taskName, setTaskName] = useState<string>();
     const [taskDescription, setTaskDescription] = useState<string>();
-    const refModal = useRef<HTMLDivElement>(null);
+    const [color, setColor] = useState<any>();
 
+    const refModal = useRef<HTMLDivElement>(null);
     const [formError, setFormError] = useState<string>("");
 
     //Create "user" object with logged user data
@@ -47,6 +48,7 @@ const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
             isActive: false,
             start: "",
             end: "",
+            color,
             uid: user.uid,
             createdBy: user.email
         })
@@ -77,7 +79,11 @@ const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
                     </label>
                     <label>
                         <span>Task description: </span>
-                        <input type="text" name="taskDescription" required placeholder="Type the description" onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription || ""} />
+                        <textarea name="taskDescription" rows={5} required placeholder="Type the description" onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription || ""} />
+                    </label>
+                    <label>
+                        <span>Task color:</span>
+                        <input type="color" name="fav-color" className="fav-color" onChange={(e) => setColor(e.target.value)} value={color || "#3788d8"} />
                     </label>
                     {!response.loading && <button className='btn'>Create</button>}
                     {response.loading && <button disabled className='btn'>Wait...</button>}

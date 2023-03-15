@@ -13,7 +13,7 @@ import { useAuthValue } from "../../context/AuthContext";
 import { useFetchActiveEvent } from "../../hooks/useFetchActiveEvent";
 
 //FullCalendar
-import { formatDate } from '@fullcalendar/core'
+//import { formatDate } from '@fullcalendar/core'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -44,11 +44,10 @@ const Dashboard = (props: Props) => {
                 title: taskNoEnd.taskName,
                 description: taskNoEnd.taskDescription,
                 start: new Date(taskNoEnd.start.seconds * 1000 + Math.round(taskNoEnd.start.nanoseconds / 1000000)),
-                end: new Date(taskNoEnd.end.seconds * 1000 + Math.round(taskNoEnd.end.nanoseconds / 1000000))
+                end: new Date(taskNoEnd.end.seconds * 1000 + Math.round(taskNoEnd.end.nanoseconds / 1000000)),
+                color: taskNoEnd.color,
             }
         ))
-
-
 
     }
 
@@ -92,8 +91,12 @@ const Dashboard = (props: Props) => {
                         initialView='timeGridWeek'
                         events={listObjectsTask}
                         allDaySlot={false}
+                        contentHeight={610}
+                        slotDuration={'01:00'}
+                        nowIndicator={true}
                         eventClick={handleEventClick}
                     />
+                    <br />
                 </>
             </div>
         </>

@@ -51,12 +51,13 @@ function App() {
           <Navbar />
           <div className='container'>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/home" element={user ? <Navigate to="/dashboard" /> : <Home />} />
+              <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/profile" element={!user ? <Navigate to="/" /> : <Profile />} />
               <Route path="/dashboard" element={!user ? <Navigate to="/" /> : <Dashboard />} />
-              <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
-              <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+              <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <Register />} />
+              <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
             </Routes>
           </div>
           <Footer />
