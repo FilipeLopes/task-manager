@@ -1,0 +1,8 @@
+.events{
+    text-align: center;
+    min-height: 70vh;
+}
+
+.events p{
+    color: #aaa;
+}

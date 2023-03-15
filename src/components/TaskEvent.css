@@ -24,6 +24,10 @@
   color: #aaa;
 }
 
+.modal-content form{
+  max-width: 80%;
+}
+
 .fav-color{
   padding: 0;
 }

@@ -18,9 +18,9 @@ const Taskbar = ({ taskModal, listTasks }: Props) => {
 
     const { user } = useAuthValue();
 
-    const { updateDocument, response } = useUpdateDocument("tasks");
+    const { updateDocument } = useUpdateDocument("tasks");
 
-    const { insertEvent, response: resInsert } = useInsertEvent("tasks");
+    const { insertEvent } = useInsertEvent("tasks");
 
     const handleStartEvent = () => {
 
@@ -48,14 +48,18 @@ const Taskbar = ({ taskModal, listTasks }: Props) => {
             isActive: false,
             start: "",
             end: "",
+            color: listTasks[0].color,
             uid: user.uid,
             createdBy: user.email
         })
 
     }
 
-    if (response.loading || resInsert.loading) {
-        return <p>Loading...</p>;
+    //Fix error when user don't have tasks yet
+    if (!listTasks || listTasks[0] === undefined) {
+        listTasks = [
+            { isActive: false }
+        ]
     }
 
     return (
@@ -79,8 +83,8 @@ const Taskbar = ({ taskModal, listTasks }: Props) => {
                     {listTasks && listTasks[0].isActive === false && (
                         <li>
                             <select name="task-select" className="task-select" onChange={(e) => { setSelectedOp(e.target.value) }} value={selectedOp || ""}>
-                                <option value="">Select a task</option>
-                                {listTasks && listTasks.map((task: any) => (
+                                <option value="Select a task">Select a task</option>
+                                {listTasks && listTasks[0].createdAt && listTasks.map((task: any) => (
                                     <option key={task.id} value={task.id}>{task.taskName}</option>
                                 ))}
                             </select>

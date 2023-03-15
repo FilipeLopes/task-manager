@@ -46,9 +46,18 @@ const Dashboard = (props: Props) => {
                 start: new Date(taskNoEnd.start.seconds * 1000 + Math.round(taskNoEnd.start.nanoseconds / 1000000)),
                 end: new Date(taskNoEnd.end.seconds * 1000 + Math.round(taskNoEnd.end.nanoseconds / 1000000)),
                 color: taskNoEnd.color,
+                isActive: taskNoEnd.isActive,
             }
         ))
 
+    }
+
+    if (listObjectsTask) {
+        listObjectsTask.map((test: any) => {
+            if (test.end.toString() === "Invalid Date" && test.isActive) {
+                test.end = new Date();
+            }
+        })
     }
 
     const handleEventClick = (clickInfo: any) => {
