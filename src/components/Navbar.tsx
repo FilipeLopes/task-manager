@@ -24,9 +24,10 @@ const Navbar = (props: Props) => {
                 Task <span>Manager</span>
             </NavLink>
             <ul className="links_list">
-                <li><NavLink to="/">Home</NavLink></li>
+
                 {!user && (
                     <>
+                        <li><NavLink to="/">Home</NavLink></li>
                         <li><NavLink to="/about">About</NavLink></li>
                         <li><NavLink to="/register">Register</NavLink></li>
                         <li><NavLink to="/login">Login</NavLink></li>
@@ -35,6 +36,7 @@ const Navbar = (props: Props) => {
                 {user && (
                     <>
                         <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                        <li><NavLink to="/events">Events</NavLink></li>
                         <li><NavLink to="/profile">Profile</NavLink></li>
                         <span className="user-name"><FaUser />{user.displayName.split(' ')[0][0].toUpperCase() + user.displayName.split(' ')[0].substring(1)}</span>
                         <li><button className="logout" onClick={logout}>Logout</button></li>
