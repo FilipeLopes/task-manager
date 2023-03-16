@@ -52,10 +52,14 @@ const Dashboard = (props: Props) => {
 
     }
 
+
+
     if (listObjectsTask) {
         listObjectsTask.map((test: any) => {
             if (test.end.toString() === "Invalid Date" && test.isActive) {
-                test.end = new Date();
+                return test.end = new Date();
+            } else {
+                return test;
             }
         })
     }
