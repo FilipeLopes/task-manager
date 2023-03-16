@@ -23,8 +23,10 @@ export const useFetchAllEvents = (docCollection: any, search: any, uid = null) =
 
                 //busca
                 //dashboard
-                if (search) {
+                if (search === "all") {
                     q = await query(collectionRef, where("uid", "==", uid), orderBy("end", "desc"));
+                } else if (search === "ended") {
+                    q = await query(collectionRef, where("uid", "==", uid), where("end", "!=", ""), orderBy("end", "desc"));
                 } else {
                     q = await query(collectionRef, where("uid", "==", uid), where("end", "==", ""), orderBy("createdAt", "desc"));
                 }

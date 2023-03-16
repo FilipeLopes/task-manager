@@ -6,3 +6,53 @@
 .events p{
     color: #aaa;
 }
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .list-item.title td{
+    font-weight: bold;
+  }
+
+  .item-buttons {
+    flex: 0 0 120px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .edit-button,
+  .delete-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 1em;
+  }
+  
+  .edit-button:hover,
+  .delete-button:hover {
+    background-color: #0062cc;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
