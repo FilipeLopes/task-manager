@@ -18,6 +18,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import EventModal from "../../components/EventModal";
 
 type Props = {}
 
@@ -25,8 +26,15 @@ const Dashboard = (props: Props) => {
     const [modalDisplay, setModalDisplay] = useState<string>();
     const [taskState, setTaskState] = useState<any>();
     const [loadingTask, setLoadingTask] = useState<any>();
+    const [eventModalDisplay, setEventModalDisplay] = useState<any>();
+    const [eventId, setEventId] = useState<any>();
+
     const taskModal = (value: any) => {
         setModalDisplay(value);
+    }
+
+    const eventModal = (value: any) => {
+        setEventModalDisplay(value);
     }
 
     const { user } = useAuthValue();
@@ -47,6 +55,7 @@ const Dashboard = (props: Props) => {
                 end: new Date(taskNoEnd.end.seconds * 1000 + Math.round(taskNoEnd.end.nanoseconds / 1000000)),
                 color: taskNoEnd.color,
                 isActive: taskNoEnd.isActive,
+                id: taskNoEnd.id,
             }
         ))
 
@@ -65,9 +74,11 @@ const Dashboard = (props: Props) => {
     }
 
     const handleEventClick = (clickInfo: any) => {
-        console.log(clickInfo.event.title);
-        console.log(clickInfo.event.extendedProps.description);
+        setEventId(clickInfo.event.id);
+        setEventModalDisplay("block");
     }
+
+
 
     useEffect(() => {
 
@@ -94,6 +105,7 @@ const Dashboard = (props: Props) => {
                 <>
                     <TaskEvent taskModal={taskModal} modalDisplay={modalDisplay} />
                     <br />
+                    {eventId && <EventModal eventModal={eventModal} eventModalDisplay={eventModalDisplay} eventId={eventId} />}
                     <FullCalendar
                         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                         headerToolbar={{
