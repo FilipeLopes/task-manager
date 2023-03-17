@@ -17,18 +17,18 @@ const Events = (props: Props) => {
     const { user } = useAuthValue();
     const uid = user.uid;
     const search = "ended";
-    const [updateModalDisplay, setUpdateModalDisplay] = useState<any>();
-    const [eventId, setEventId] = useState<any>();
+    const [updateModalDisplay, setUpdateModalDisplay] = useState<string>();
+    const [eventId, setEventId] = useState<string>();
 
     const { documents: tasks, loading } = useFetchAllEvents("tasks", search, uid);
 
     const { deleteDocument } = useDeleteDocument("tasks");
 
-    const updateModal = (value: any) => {
+    const updateModal = (value: string) => {
         setUpdateModalDisplay(value);
     }
 
-    const handleEditEvent = (id: any) => {
+    const handleEditEvent = (id: string) => {
         setUpdateModalDisplay("block");
         setEventId(id);
     }
