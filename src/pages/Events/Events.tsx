@@ -2,10 +2,12 @@ import "./Events.css"
 //Context
 import { useAuthValue } from "../../context/AuthContext";
 
+//Components
+import UpdateModal from "../../components/UpdateModal";
+
 //Hooks
 import { useFetchAllEvents } from "../../hooks/useFetchAllEvents";
 import { useState } from "react";
-import UpdateModal from "../../components/UpdateModal";
 import { useDeleteDocument } from "../../hooks/useDeleteEvent";
 
 type Props = {}

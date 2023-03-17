@@ -1,7 +1,10 @@
+import "./UpdateModal.css"
+
+//Hooks
 import { useRef, useEffect, useState } from "react";
 import { useFetchSingleDocument } from "../hooks/useFetchSingleEvent";
 import { useUpdateDocument } from "../hooks/useUpdateDocument";
-import "./UpdateModal.css"
+
 type Props = {
     updateModal: (value: any) => void;
     updateModalDisplay: any;
