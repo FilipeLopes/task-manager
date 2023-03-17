@@ -17,8 +17,8 @@ type Props = {
 const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
     const [taskName, setTaskName] = useState<string>();
     const [taskDescription, setTaskDescription] = useState<string>();
-    const [gitUrl, setGitUrl] = useState<string>();
-    const [color, setColor] = useState<any>();
+    const [gitUrl, setGitUrl] = useState<string>("");
+    const [color, setColor] = useState<any>("#3788d8");
 
     const refModal = useRef<HTMLDivElement>(null);
     const [formError, setFormError] = useState<string>("");
@@ -58,6 +58,8 @@ const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
 
         setTaskName("");
         setTaskDescription("");
+        setGitUrl("");
+        setColor("#3788d8");
         taskModal("none");
         navigate("/dashboard");
     }

@@ -2,3 +2,36 @@
     text-align: center;
     min-height: 70vh;
 }
+.welcome{
+    display: flex;
+    justify-content: center;
+    margin: 1em 1em 0 1em;
+    height: 70vh;
+    
+}
+
+.image{
+    align-self: center;
+}
+
+.message{
+    align-self: center;
+    
+}
+
+.message p{
+    max-width: 600px;
+    
+}
+
+.welcome svg{
+    width: 100%;
+    position: absolute;
+    align-self: flex-end;
+    z-index: -1;
+    
+}
+
+.welcome img{
+    width: 600px;
+}
