@@ -17,6 +17,7 @@ type Props = {
 const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
     const [taskName, setTaskName] = useState<string>();
     const [taskDescription, setTaskDescription] = useState<string>();
+    const [gitUrl, setGitUrl] = useState<string>();
     const [color, setColor] = useState<any>();
 
     const refModal = useRef<HTMLDivElement>(null);
@@ -45,6 +46,7 @@ const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
         insertEvent({
             taskName,
             taskDescription,
+            gitUrl,
             isActive: false,
             start: "",
             end: "",
@@ -74,11 +76,15 @@ const TaskEvent = ({ taskModal, modalDisplay }: Props) => {
                 <p>Define a new task to work with...</p>
                 <form onSubmit={handleNewTask}>
                     <label>
-                        <span>Task name: </span>
+                        <span>Task name:* </span>
                         <input type="text" name="taskName" required placeholder="Type the task name" onChange={(e) => setTaskName(e.target.value)} value={taskName || ""} />
                     </label>
                     <label>
-                        <span>Task description: </span>
+                        <span>Github Repository: </span>
+                        <input type="text" name="taskGit" placeholder="Include a github repo" onChange={(e) => setGitUrl(e.target.value)} value={gitUrl || ""} />
+                    </label>
+                    <label>
+                        <span>Task description:* </span>
                         <textarea name="taskDescription" rows={5} required placeholder="Type the description" onChange={(e) => setTaskDescription(e.target.value)} value={taskDescription || ""} />
                     </label>
                     <label>
